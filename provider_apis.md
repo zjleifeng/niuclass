@@ -206,5 +206,4 @@ http code 500
     "message": "create organization failed",
     "code": "INTERNAL_SERVER_ERROR"
 }
-``
 ```
