@@ -26,8 +26,8 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## 访问地址
-线上： https://niuclass.qiniuapi.com
-测试： https://niuclass-api.qiniu.io
+- 线上： https://niuclass.qiniuapi.com
+- 测试： https://api-niuclass.qiniu.io
 
 ## 鉴权
 ```
