@@ -219,11 +219,11 @@ PUT /api/organization/:id
 ### 参数
 |名称|类型|是否必须|描述|
 |----|----|----|----|
-|`name`|`string`|是|机构名称|
-|`slogan`|`string`|否|机构口号|
-|`description`|`string`|否|机构描述|
-|`logo`|`string`|否|机构logo|
-|`company`|`string`|否|机构所属的公司|
+|`name`|`string`|否|机构名称，如果不传就不更新|
+|`slogan`|`string`|否|机构口号，如果不传就不更新|
+|`description`|`string`|否|机构描述，如果不传就不更新|
+|`logo`|`string`|否|机构logo，如果不传就不更新|
+|`company`|`string`|否|机构所属的公司，如果不传就不更新|
 
 #### 请求示例
 ```json
