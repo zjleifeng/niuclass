@@ -22,6 +22,11 @@
     - [请求示例](#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-3)
   - [返回](#%E8%BF%94%E5%9B%9E-3)
   - [错误](#%E9%94%99%E8%AF%AF-2)
+- [更新机构信息](#%E6%9B%B4%E6%96%B0%E6%9C%BA%E6%9E%84%E4%BF%A1%E6%81%AF)
+  - [鉴权](#%E9%89%B4%E6%9D%83-1)
+  - [参数](#%E5%8F%82%E6%95%B0-4)
+    - [请求示例](#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-4)
+  - [返回](#%E8%BF%94%E5%9B%9E-4)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
