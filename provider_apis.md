@@ -26,6 +26,11 @@
   - [参数](#%E5%8F%82%E6%95%B0-4)
     - [请求示例](#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-4)
   - [返回](#%E8%BF%94%E5%9B%9E-4)
+- [更新机构成员角色信息](#%E6%9B%B4%E6%96%B0%E6%9C%BA%E6%9E%84%E6%88%90%E5%91%98%E8%A7%92%E8%89%B2%E4%BF%A1%E6%81%AF)
+  - [参数](#%E5%8F%82%E6%95%B0-5)
+    - [请求示例](#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-5)
+  - [返回](#%E8%BF%94%E5%9B%9E-5)
+  - [错误](#%E9%94%99%E8%AF%AF-3)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -122,7 +127,7 @@ GET /api/courses
 |`offset`|`int`|否|偏移量，分页的时候需要|
 |`start`|`timestamp`|否|时间范围，开始时间 单位 秒|
 |`end`|`timestamp`|否|时间范围，结束时间 单位 秒，如果开始时间和结束时间都不传，默认返回在课程周期里面的课程|
-|`organization_id`|`uint`|否|机构ID，可以获取指定机构的课程，不传默认返回当前渠道商所以机构的课程|
+|`organization_id`|否|机构ID，可以获取指定机构的课程，不传默认返回当前渠道商所以机构的课程|
 
 #### 请求示例
 ```json
@@ -251,3 +256,36 @@ Authorization: Bearer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     "company": "WebCompe"
 }
 ```
+
+## 更新机构成员角色信息
+```
+PUT /api/organization/:id/members
+```
+- :id  是创建机构的时候返回的 `id`
+
+### 参数
+|名称|类型|是否必须|描述|
+|----|----|----|----|
+|`user_id`|`string`|是|需要更新的用户的 UUID|
+|`role`|`string`|否|更新的权限，支持：teacher(不能进入机构后台，没有机构操作权限), student(不能进入机构后台，没有机构操作权限), maitainer(可以进入机构后台，有管理权限), owner(可以进入机构后台，有管理权限)，不传就不更新|
+
+#### 请求示例
+```json
+PUT /api/organization/33/member
+Content-Type: application/json
+Authorization: Bearer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+{
+    "user_id": "uuid",
+    "role": "teacher"
+}
+```
+### 返回
+```
+HTTP STATUS 200
+```
+
+### 错误
+- 400 参数错误
+- 500 内部错误
+- 404 用户或者机构不存在
