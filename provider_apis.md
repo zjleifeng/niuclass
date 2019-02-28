@@ -84,8 +84,8 @@ POST /login
 ### 参数
 |名称|类型|是否必须|描述|
 |----|----|----|----|
-|`mobile`|`string`|是|渠道商在niuclass的账户|
-|`password`|`string`|是|渠道商在niuclass账户的密码|
+|`mobile`|`string`|是|机构在niuclass的账户|
+|`password`|`string`|是|机构在niuclass账户的密码|
 
 #### 请求示例
 ```json
