@@ -98,7 +98,7 @@ Content-Type: application/json
 }
 ```
 ### 返回
-返回的结果是 jwt token, 解析出来会有一个过期时间，如果过期了，那么渠道商需要重新鉴权。
+返回的结果是 jwt token, 解析出来会有一个过期时间，如果过期了，需要重新鉴权。
 在后面的每次请求都需要带上这个 jwt token，放在 header 里面里面：
 `Authorization: Bearer {{token}}`
 ```json
@@ -166,7 +166,7 @@ GET /api/courses
 |`offset`|`int`|否|偏移量，分页的时候需要|
 |`start`|`timestamp`|否|时间范围，开始时间 单位 秒|
 |`end`|`timestamp`|否|时间范围，结束时间 单位 秒，如果开始时间和结束时间都不传，默认返回在课程周期里面的课程|
-|`organization_id`|否|机构ID，可以获取指定机构的课程，不传默认返回当前渠道商所以机构的课程|
+|`organization_id`|否|机构ID，可以获取指定机构的课程，不传默认返回当前用户所有机构的课程|
 
 #### 请求示例
 ```json
