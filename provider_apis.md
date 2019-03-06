@@ -552,7 +552,7 @@ HTTP STATUS 204
 ```
 GET /api/course/:id
 ```
-- :id  [创建机构用户](#%E5%88%9B%E5%BB%BA%E6%9C%BA%E6%9E%84%E7%94%A8%E6%88%B7)时返回的 `id`
+- :id  [创建课程](#%E5%88%9B%E5%BB%BA%E8%AF%BE%E7%A8%8B)时返回的 `id`
 
 ### 参数
 没有参数
