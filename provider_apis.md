@@ -73,6 +73,9 @@
 - [回调](#%E5%9B%9E%E8%B0%83)
   - [创建课程](#%E5%88%9B%E5%BB%BA%E8%AF%BE%E7%A8%8B-1)
   - [IM 回调](#im-%E5%9B%9E%E8%B0%83)
+  - [录制(直播)回调](#%E5%BD%95%E5%88%B6%E7%9B%B4%E6%92%AD%E5%9B%9E%E8%B0%83)
+    - [开始录制(开始直播)](#%E5%BC%80%E5%A7%8B%E5%BD%95%E5%88%B6%E5%BC%80%E5%A7%8B%E7%9B%B4%E6%92%AD)
+    - [结束录制(结束直播)](#%E7%BB%93%E6%9D%9F%E5%BD%95%E5%88%B6%E7%BB%93%E6%9D%9F%E7%9B%B4%E6%92%AD)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -161,7 +164,7 @@ HTTP CODE 500
 ```
 GET /api/courses
 ```
-
+当没有传 `start 和 end`的时候，默认返回还没有结束的课程
 ### 参数
 |名称|类型|是否必须|描述|
 |----|----|----|----|
@@ -187,7 +190,8 @@ HTTP CODE 200
         "description": "古诗词鉴赏", // 课程描述
         "duration": 3600, // 单节课时长
         "latest_class_time": 1548381600, // 课程最近的开始时间
-        "organization_id": 23 // 课程属于的组织ID
+        "organization_id": 23, // 课程属于的组织ID
+        "live_hls": "http://hls.niuclass.qiniu.com/niuclass/releas-room_2_23" // hls 直播地址
     }...]
 }
 ```
@@ -599,7 +603,8 @@ Authorization: Bearer xxxxxxxxxx
     "latest_class_time": 1551324000, //  下一堂课开课时间
     "total_classes": 65, // 总共课节数
     "finished_classes": 0, // 已经上完的课节数
-    "state": "notstart" // 课程当前的状态 `notstart`: 未开始, `starting`: 即将开始, `inprogress`: 正在上课, `finish`: 已经结束
+    "state": "notstart", // 课程当前的状态 `notstart`: 未开始, `starting`: 即将开始, `inprogress`: 正在上课, `finish`: 已经结束
+    "live_hls": "http://hls.niuclass.qiniu.com/niuclass/releas-room_2_23" // hls 直播地址
 }
 ```
 
@@ -752,7 +757,8 @@ Authorization: Bearer xxxxxxxxxx
         "latest_class_time": 1551324000, //  下一堂课开课时间
         "total_classes": 65, // 总共课节数
         "finished_classes": 0, // 已经上完的课节数
-        "state": "notstart" // 课程当前的状态 `notstart`: 未开始, `starting`: 即将开始, `inprogress`: 正在上课, `finish`: 已经结束
+        "state": "notstart", // 课程当前的状态 `notstart`: 未开始, `starting`: 即将开始, `inprogress`: 正在上课, `finish`: 已经结束
+        "live_hls": "http://hls.niuclass.qiniu.com/niuclass/releas-room_2_23"
     }
 }
 ```
@@ -765,7 +771,32 @@ Authorization: Bearer xxxxxxxxxx
     "data": {
         "content":"今天是周三",
         "name":"钟馗",
-        "role":"teacher"
+        "role":"teacher",
+        "avatar":"http://pili-bucket.niuclass.qnsdk.com/FoteerP5Aj6oyTyFoFFyY8tN-uCZ",
+        "course_id":5,
+        "type":"text"
+    }
+}
+```
+
+### 录制(直播)回调
+
+#### 开始录制(开始直播)
+```json
+{
+    "type":"live_start",
+    "data":{
+        "course_id":4 // 课程 id
+    }
+}
+```
+
+#### 结束录制(结束直播)
+```json
+{
+    "type":"live_stop",
+    "data":{
+        "course_id":4
     }
 }
 ```
