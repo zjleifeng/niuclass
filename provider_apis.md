@@ -70,6 +70,9 @@
 - [移除机构用户](#%E7%A7%BB%E9%99%A4%E6%9C%BA%E6%9E%84%E7%94%A8%E6%88%B7)
   - [参数](#%E5%8F%82%E6%95%B0-15)
     - [请求示例](#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-15)
+- [回调](#%E5%9B%9E%E8%B0%83)
+  - [创建课程](#%E5%88%9B%E5%BB%BA%E8%AF%BE%E7%A8%8B-1)
+  - [IM 回调](#im-%E5%9B%9E%E8%B0%83)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -84,8 +87,8 @@ POST /login
 ### 参数
 |名称|类型|是否必须|描述|
 |----|----|----|----|
-|`mobile`|`string`|是|机构在niuclass的账户|
-|`password`|`string`|是|机构在niuclass账户的密码|
+|`mobile`|`string`|是|渠道商在niuclass的账户|
+|`password`|`string`|是|渠道商在niuclass账户的密码|
 
 #### 请求示例
 ```json
@@ -98,7 +101,7 @@ Content-Type: application/json
 }
 ```
 ### 返回
-返回的结果是 jwt token, 解析出来会有一个过期时间，如果过期了，需要重新鉴权。
+返回的结果是 jwt token, 解析出来会有一个过期时间，如果过期了，那么渠道商需要重新鉴权。
 在后面的每次请求都需要带上这个 jwt token，放在 header 里面里面：
 `Authorization: Bearer {{token}}`
 ```json
@@ -166,7 +169,7 @@ GET /api/courses
 |`offset`|`int`|否|偏移量，分页的时候需要|
 |`start`|`timestamp`|否|时间范围，开始时间 单位 秒|
 |`end`|`timestamp`|否|时间范围，结束时间 单位 秒，如果开始时间和结束时间都不传，默认返回在课程周期里面的课程|
-|`organization_id`|否|机构ID，可以获取指定机构的课程，不传默认返回当前用户所有机构的课程|
+|`organization_id`|否|机构ID，可以获取指定机构的课程，不传默认返回当前渠道商所以机构的课程|
 
 #### 请求示例
 ```json
@@ -217,6 +220,7 @@ POST /api/organization
 |`company`|`string`|否|机构所属的公司|
 |`max_podium_user`|`uint`|否|允许最大上台人数，默认为8，目前最大也为8|
 |`max_clarity`|`string`|否|允许的最大清晰度，Normal: 标清 480P, SD: 高清 540P, HD: 超清 720P, FHD: 1080P。默认全部都可以选择|
+|`callback_url`|`string`|否|如果不传，那么在创建课程的时候不会有回调，回调内容请参考 [回调](#%E5%9B%9E%E8%B0%83)|
 
 #### 请求示例
 ```json
@@ -272,6 +276,7 @@ PUT /api/organization/:id
 |`company`|`string`|否|机构所属的公司，如果不传就不更新|
 |`max_podium_user`|`uint`|否|允许最大上台人数|
 |`max_clarity`|`string`|否|允许的最大清晰度，Normal: 标清 480P, SD: 高清 540P, HD: 超清 720P, FHD: 1080P|
+|`callback_url`|`string`|否|回调地址, 回调内容请参考 [回调](#%E5%9B%9E%E8%B0%83)|
 
 #### 请求示例
 ```json
@@ -567,22 +572,22 @@ Authorization: Bearer xxxxxxxxxx
 ### 返回
 ```json
 {
-    "id": 9,
-    "organization_id": 2,
-    "creator_id": 5,
-    "title": "王维诗词鉴赏",
-    "poster": "FuxvQLLJ3je85bQRA",
-    "poster_url": "http://niuclass.qnsdk.com/FuxvQLLJ3je85",
-    "description": "没有东西",
-    "start": 1551283200,
-    "end": 1564113900,
-    "duration": 2700,
-    "period": 22,
-    "max_podium_user": 6,
-    "clarity": "FHD",
+    "id": 9, // 课程 ID
+    "organization_id": 2, // 组织ID
+    "creator_id": 5, // 创建者 ID
+    "title": "王维诗词鉴赏", // 课程名称
+    "poster": "FuxvQLLJ3je85bQRA", // 封面
+    "poster_url": "http://niuclass.qnsdk.com/FuxvQLLJ3je85", // 完整可以访问的封面图片
+    "description": "没有东西", // 课程描述
+    "start": 1551283200, // 课程开始时间 时间戳
+    "end": 1564113900, // 课程结束时间 时间戳
+    "duration": 2700, // 课程时长 单位 s
+    "period": 22, // 课程周期
+    "max_podium_user": 6, // 课程最大上台人数
+    "clarity": "FHD", // 课程的清晰度
     "created_at": null,
     "updated_at": 1551248515,
-    "times": [{
+    "times": [{ // 课程时间安排
         "id": 83,
         "course_id": 9,
         "start": 1551283200,
@@ -591,10 +596,10 @@ Authorization: Bearer xxxxxxxxxx
         "repeat": "weekly",
         "points": [3, 4, 5]
     }],
-    "latest_class_time": 1551324000,
-    "total_classes": 65,
-    "finished_classes": 0,
-    "state": "notstart"
+    "latest_class_time": 1551324000, //  下一堂课开课时间
+    "total_classes": 65, // 总共课节数
+    "finished_classes": 0, // 已经上完的课节数
+    "state": "notstart" // 课程当前的状态 `notstart`: 未开始, `starting`: 即将开始, `inprogress`: 正在上课, `finish`: 已经结束
 }
 ```
 
@@ -709,4 +714,58 @@ DELETE /api/organization/:id/members/:member_id
 DELETE /api/organization/3/members/12
 Content-Type: application/json
 Authorization: Bearer xxxxxxxxxx
+```
+
+## 回调
+根据不同的业务场景回调的内容也不一样
+
+### 创建课程
+回调内容
+```json
+{
+    "type": "create_course",
+    "data": {
+        "id": 9, // 课程 ID
+        "organization_id": 2, // 组织ID
+        "creator_id": 5, // 创建者 ID
+        "title": "王维诗词鉴赏", // 课程名称
+        "poster": "FuxvQLLJ3je85bQRA", // 封面
+        "poster_url": "http://niuclass.qnsdk.com/FuxvQLLJ3je85", // 完整可以访问的封面图片
+        "description": "没有东西", // 课程描述
+        "start": 1551283200, // 课程开始时间 时间戳
+        "end": 1564113900, // 课程结束时间 时间戳
+        "duration": 2700, // 课程时长 单位 s
+        "period": 22, // 课程周期
+        "max_podium_user": 6, // 课程最大上台人数
+        "clarity": "FHD", // 课程的清晰度
+        "created_at": null,
+        "updated_at": 1551248515,
+        "times": [{ // 课程时间安排
+            "id": 83,
+            "course_id": 9,
+            "start": 1551283200,
+            "class_start": "11:20",
+            "class_end": "12:05",
+            "repeat": "weekly",
+            "points": [3, 4, 5]
+        }],
+        "latest_class_time": 1551324000, //  下一堂课开课时间
+        "total_classes": 65, // 总共课节数
+        "finished_classes": 0, // 已经上完的课节数
+        "state": "notstart" // 课程当前的状态 `notstart`: 未开始, `starting`: 即将开始, `inprogress`: 正在上课, `finish`: 已经结束
+    }
+}
+```
+
+### IM 回调
+回调内容
+```json
+{
+    "type": "im",
+    "data": {
+        "content":"今天是周三",
+        "name":"钟馗",
+        "role":"teacher"
+    }
+}
 ```
