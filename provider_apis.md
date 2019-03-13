@@ -60,16 +60,20 @@
   - [参数](#%E5%8F%82%E6%95%B0-12)
     - [请求示例](#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-12)
   - [返回](#%E8%BF%94%E5%9B%9E-12)
-- [创建机构用户](#%E5%88%9B%E5%BB%BA%E6%9C%BA%E6%9E%84%E7%94%A8%E6%88%B7)
+- [创建自定义IM消息](#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89im%E6%B6%88%E6%81%AF)
   - [参数](#%E5%8F%82%E6%95%B0-13)
     - [请求示例](#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-13)
   - [返回](#%E8%BF%94%E5%9B%9E-13)
-- [通过 MemberID 修改机构用户信息](#%E9%80%9A%E8%BF%87-memberid-%E4%BF%AE%E6%94%B9%E6%9C%BA%E6%9E%84%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF)
+- [创建机构用户](#%E5%88%9B%E5%BB%BA%E6%9C%BA%E6%9E%84%E7%94%A8%E6%88%B7)
   - [参数](#%E5%8F%82%E6%95%B0-14)
     - [请求示例](#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-14)
-- [移除机构用户](#%E7%A7%BB%E9%99%A4%E6%9C%BA%E6%9E%84%E7%94%A8%E6%88%B7)
+  - [返回](#%E8%BF%94%E5%9B%9E-14)
+- [通过 MemberID 修改机构用户信息](#%E9%80%9A%E8%BF%87-memberid-%E4%BF%AE%E6%94%B9%E6%9C%BA%E6%9E%84%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF)
   - [参数](#%E5%8F%82%E6%95%B0-15)
     - [请求示例](#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-15)
+- [移除机构用户](#%E7%A7%BB%E9%99%A4%E6%9C%BA%E6%9E%84%E7%94%A8%E6%88%B7)
+  - [参数](#%E5%8F%82%E6%95%B0-16)
+    - [请求示例](#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-16)
 - [回调](#%E5%9B%9E%E8%B0%83)
   - [创建课程](#%E5%88%9B%E5%BB%BA%E8%AF%BE%E7%A8%8B-1)
   - [IM 回调](#im-%E5%9B%9E%E8%B0%83)
@@ -624,9 +628,40 @@ Content-Type: application/json
 Authorization: Bearer xxxxxxxxxx
 ```
 
-### 返回 
+### 返回
 ```
 HTTP STATUS 204
+```
+
+## 创建自定义IM消息
+```
+POST /api/course/:id/customim
+```
+- :id [创建课程](#%E5%88%9B%E5%BB%BA%E8%AF%BE%E7%A8%8B)时返回的 `id`
+
+### 参数
+|名称|类型|是否必须|描述|
+|----|----|----|----|
+|`name`|`string`|是|发送IM消息用户的昵称|
+|`text`|`string`|是|消息内容|
+|`avatar`|`string`|是|发送者的头像|
+|`timestamp`|`timestamp`|是|时间戳，单位 秒|
+
+#### 请求示例
+```json
+POST /api/course/22/customim
+Content-Type: application/json
+Authorization: Bearer xxxxxxxxxx
+{
+    "name": "项羽",
+    "text": "今天下午早下班",
+    "avatar": "https://xxaa2.img/avatar.png",
+    "timestamp": 1552460561
+}
+```
+### 返回
+```
+HTTP CODE 200
 ```
 
 ## 创建机构用户
