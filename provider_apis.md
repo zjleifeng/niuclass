@@ -612,7 +612,7 @@ Authorization: Bearer xxxxxxxxxx
     "total_classes": 65, // 总共课节数
     "finished_classes": 0, // 已经上完的课节数
     "state": "notstart", // 课程当前的状态 `notstart`: 未开始, `starting`: 即将开始, `inprogress`: 正在上课, `finish`: 已经结束
-    "live_hls": "http://hls.niuclass.qiniu.com/niuclass/releas-room_2_23" // hls 直播地址
+    "live_hls": "http://hls.niuclass.qiniu.com/niuclass/releas-room_2_23.m3u8" // hls 直播地址
 }
 ```
 
@@ -840,7 +840,7 @@ Authorization: Bearer xxxxxxxxxx
         "total_classes": 65, // 总共课节数
         "finished_classes": 0, // 已经上完的课节数
         "state": "notstart", // 课程当前的状态 `notstart`: 未开始, `starting`: 即将开始, `inprogress`: 正在上课, `finish`: 已经结束
-        "live_hls": "http://hls.niuclass.qiniu.com/niuclass/releas-room_2_23"
+        "live_hls": "http://hls.niuclass.qiniu.com/niuclass/releas-room_2_23.m3u8"
     }
 }
 ```
