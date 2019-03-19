@@ -770,7 +770,7 @@ GET /api/user/statistics
 |----|----|----|----|
 |`user_id`|`string`|是|用户uuid|
 |`start`|`timestamp`|否|默认最近7天|
-|`end`|`timestamp`|否默认最近7天|
+|`end`|`timestamp`|否|默认最近7天|
 
 #### 请求示例
 ```
