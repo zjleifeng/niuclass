@@ -74,6 +74,10 @@
 - [移除机构用户](#%E7%A7%BB%E9%99%A4%E6%9C%BA%E6%9E%84%E7%94%A8%E6%88%B7)
   - [参数](#%E5%8F%82%E6%95%B0-16)
     - [请求示例](#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-16)
+- [获取用户上课时间](#%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E4%B8%8A%E8%AF%BE%E6%97%B6%E9%97%B4)
+  - [参数](#%E5%8F%82%E6%95%B0-17)
+    - [请求示例](#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-17)
+  - [返回](#%E8%BF%94%E5%9B%9E-15)
 - [回调](#%E5%9B%9E%E8%B0%83)
   - [创建课程](#%E5%88%9B%E5%BB%BA%E8%AF%BE%E7%A8%8B-1)
   - [IM 回调](#im-%E5%9B%9E%E8%B0%83)
@@ -755,6 +759,49 @@ DELETE /api/organization/3/members/12
 Content-Type: application/json
 Authorization: Bearer xxxxxxxxxx
 ```
+
+## 获取用户上课时间
+```
+GET /api/user/statistics
+```
+
+### 参数
+|名称|类型|是否必须|描述|
+|----|----|----|----|
+|`user_id`|`string`|是|用户uuid|
+|`start`|`timestamp`|否|默认最近7天|
+|`end`|`timestamp`|否默认最近7天|
+
+#### 请求示例
+```
+GET /api/user/statistics?user_id=uuid&end=1552978121&start=1547488800
+Authorization: Bearer xxxxxxxxxx
+```
+
+### 返回
+```json
+{
+   "items" : [
+      {
+         "course_id" : 3, // 课程ID
+         "class_start" : 1547715600, // 课堂开始时间
+         "course_name" : "李白诗歌鉴赏", // 课程名称
+         "class_end" : 1547726400, // 课堂结束时间
+         "organization_id" : 2, // 机构 ID
+         "time" : 6444 // 上课时间 单位 秒
+      },
+      {
+         "course_id" : 5,
+         "class_end" : 1548753300,
+         "course_name" : "陶渊明诗词鉴赏",
+         "class_start" : 1548742500,
+         "time" : 173,
+         "organization_id" : 2
+      }....
+   ]
+}
+```
+
 
 ## 回调
 根据不同的业务场景回调的内容也不一样
