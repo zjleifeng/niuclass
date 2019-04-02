@@ -328,6 +328,7 @@ PUT /api/organization/:id/members
 |----|----|----|----|
 |`user_id`|`string`|是|需要更新的用户的 UUID|
 |`role`|`string`|否|更新的权限，支持：teacher(不能进入机构后台，没有机构操作权限), student(不能进入机构后台，没有机构操作权限), maitainer(可以进入机构后台，有管理权限), owner(可以进入机构后台，有管理权限)，不传就不更新|
+|`name`|`string`|否|更新用户昵称|
 
 #### 请求示例
 ```json
